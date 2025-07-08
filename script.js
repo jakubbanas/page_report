@@ -1,3 +1,10 @@
+const adRequests = performance.getEntriesByType("resource").filter(resource => {
+  const isApiRequest = resource.initiatorType === 'xmlhttprequest' || resource.initiatorType === 'fetch';
+  const isAdCall = resource.name.includes('ads');
+
+  return isApiRequest && isAdCall;
+});
+
 const data = {
     userAgent: navigator.userAgent,
     screen: {
@@ -7,6 +14,8 @@ const data = {
         innerHeight: window.innerHeight,
     },
     dom: document.body.innerHTML,
+    adRequests: adRequests,
+    allBids: pbjs.getBidResponses(),
 };
 const jsonStr = JSON.stringify(data, null, 2);
 
