@@ -1,6 +1,6 @@
 const adRequests = performance.getEntriesByType("resource").filter(resource => {
   const isApiRequest = resource.initiatorType === 'xmlhttprequest' || resource.initiatorType === 'fetch';
-  const isAdCall = resource.name.includes('ads');
+  const isAdCall = resource.name.includes('ads?');
 
   return isApiRequest && isAdCall;
 });
